@@ -24,6 +24,7 @@ public class Money {
         shouldThrowExceptionWhenNonNumeric(input);
         shouldThrowExceptionWhenOutOfIntegerRange(input);
         shouldThrowExceptionWhenNotDivisibleByThousand(input);
+        shouldThrowExceptionWhenZeroAmount(input);
     }
 
     private static void shouldThrowExceptionWhenNonNumeric(String input) {
@@ -46,6 +47,13 @@ public class Money {
         int amount = Integer.parseInt(input);
         if (amount % 1000 != 0) {
             throw new IllegalArgumentException(MoneyErrorMessage.NOT_DIVISIBLE_BY_THOUSAND.text());
+        }
+    }
+
+    private static void shouldThrowExceptionWhenZeroAmount(String input) {
+        int amount = Integer.parseInt(input);
+        if (amount == 0) {
+            throw new IllegalArgumentException(MoneyErrorMessage.ZERO_AMOUNT.text());
         }
     }
 
