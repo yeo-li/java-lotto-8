@@ -23,6 +23,7 @@ public class Money {
     private static void validate(String input) {
         shouldThrowExceptionWhenNonNumeric(input);
         shouldThrowExceptionWhenOutOfIntegerRange(input);
+        shouldThrowExceptionWhenNotDivisibleByThousand(input);
     }
 
     private static void shouldThrowExceptionWhenNonNumeric(String input) {
@@ -38,6 +39,13 @@ public class Money {
             Integer.parseInt(input);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(MoneyErrorMessage.OUT_OF_INTEGER_RANGE.text());
+        }
+    }
+
+    private static void shouldThrowExceptionWhenNotDivisibleByThousand(String input) {
+        int amount = Integer.parseInt(input);
+        if (amount % 1000 != 0) {
+            throw new IllegalArgumentException(MoneyErrorMessage.NOT_DIVISIBLE_BY_THOUSAND.text());
         }
     }
 
