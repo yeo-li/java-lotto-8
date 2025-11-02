@@ -1,5 +1,6 @@
 package lotto.domain;
 
+import java.util.List;
 import lotto.exception.LottoMachineErrorMessage;
 
 public class LottoMachine {
@@ -14,14 +15,15 @@ public class LottoMachine {
     }
 
     public static LottoMachine from(WinningLotto winningLotto, String bonusNumber) {
-        validateBonusNumber(bonusNumber);
+        validateBonusNumber(winningLotto, bonusNumber);
         return new LottoMachine(winningLotto, Integer.parseInt(bonusNumber));
     }
 
 
-    private static void validateBonusNumber(String bonusNumber) {
+    private static void validateBonusNumber(WinningLotto winningLotto, String bonusNumber) {
         shouldThrowExceptionWhenInvalidCharacter(bonusNumber);
         shouldThrowExceptionWhenOutOfRange(bonusNumber);
+        shouldThrowExceptionWhenDuplicated(winningLotto, bonusNumber);
     }
 
     private static void shouldThrowExceptionWhenInvalidCharacter(String bonusNumber) {
@@ -38,6 +40,15 @@ public class LottoMachine {
             }
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException(LottoMachineErrorMessage.OUT_OF_RANGE.text());
+        }
+    }
+
+    private static void shouldThrowExceptionWhenDuplicated(WinningLotto winningLotto,
+        String input) {
+        int bonusNumber = Integer.parseInt(input);
+        List<Integer> numbers = winningLotto.getNumbers();
+        if (numbers.contains(bonusNumber)) {
+            throw new IllegalArgumentException(LottoMachineErrorMessage.DUPLICATED_NUMBER.text());
         }
     }
 
