@@ -1,6 +1,8 @@
 package lotto.controller;
 
 import lotto.domain.Money;
+import lotto.domain.WinningLotto;
+import lotto.util.Parser;
 import lotto.view.InputView;
 
 public class LottoController {
@@ -12,14 +14,26 @@ public class LottoController {
     }
 
     public void run() {
-        Money money = inputMoney();
+        Money money = createMoney();
+        WinningLotto winningLotto = createWinningLotto();
     }
 
-    private Money inputMoney() {
+    private Money createMoney() {
         while (true) {
             try {
-                String input = inputView.inputPurchaseAmount();
+                String input = Parser.removeAllSpaces(inputView.inputPurchaseAmount());
                 return Money.from(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private WinningLotto createWinningLotto() {
+        while (true) {
+            try {
+                String input = Parser.removeAllSpaces(inputView.inputWinningNumbers());
+                return WinningLotto.from(input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
