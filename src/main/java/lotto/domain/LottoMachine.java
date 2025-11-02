@@ -1,12 +1,14 @@
 package lotto.domain;
 
+import lotto.exception.LottoMachineErrorMessage;
+
 public class LottoMachine {
 
     private final WinningLotto winningNumbers;
     private final int bonusNumber;
 
 
-    public LottoMachine(WinningLotto winningNumbers, int bonusNumber) {
+    private LottoMachine(WinningLotto winningNumbers, int bonusNumber) {
         this.winningNumbers = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
@@ -18,7 +20,13 @@ public class LottoMachine {
 
 
     private static void validateBonusNumber(String bonusNumber) {
+        shouldThrowExceptionWhenInvalidCharacter(bonusNumber);
+    }
 
+    private static void shouldThrowExceptionWhenInvalidCharacter(String bonusNumber) {
+        if (!bonusNumber.matches("[0-9,]+")) {
+            throw new IllegalArgumentException(LottoMachineErrorMessage.INVALID_CHARACTER.text());
+        }
     }
 
     public WinningLotto getWinningNumbers() {
