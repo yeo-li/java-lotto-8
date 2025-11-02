@@ -53,5 +53,17 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(LottoErrorMessage.INVALID_CHARACTER.text());
         }
+
+        @Test
+        @DisplayName("당첨 번호의 갯수가 6개가 아닌 경우 예외 발생")
+        void 당첨_번호의_갯수가_6개가_아닌_경우_예외_발생() {
+            // given
+            String input = "1,2,3,4,5,6,7";
+
+            // when & then
+            assertThatThrownBy(() -> Lotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoErrorMessage.INVALID_COUNT.text());
+        }
     }
 }
