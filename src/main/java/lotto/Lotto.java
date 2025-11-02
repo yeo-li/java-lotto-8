@@ -1,8 +1,11 @@
 package lotto;
 
+import java.util.Arrays;
 import java.util.List;
+import lotto.util.Parser;
 
 public class Lotto {
+
     private final List<Integer> numbers;
 
     public Lotto(List<Integer> numbers) {
@@ -16,5 +19,18 @@ public class Lotto {
         }
     }
 
-    // TODO: 추가 기능 구현
+    public static Lotto from(String input) {
+        validateInput(input);
+
+        List<Integer> parsedNumbers = Arrays.stream(Parser.parseInput(input))
+            .map(Integer::parseInt)
+            .toList();
+
+        return new Lotto(parsedNumbers);
+    }
+
+    private static void validateInput(String input) {
+
+    }
+
 }
