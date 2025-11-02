@@ -2,6 +2,7 @@ package lotto;
 
 import java.util.Arrays;
 import java.util.List;
+import lotto.exception.LottoErrorMessage;
 import lotto.util.Parser;
 
 public class Lotto {
@@ -35,7 +36,7 @@ public class Lotto {
 
     private static void shouldThrowExceptionWhenInvalidCharacter(String input) {
         if (!input.matches("[0-9,]+")) {
-            throw new IllegalArgumentException("[ERROR] 당첨 번호에는 숫자와 컴마(,)만 포함될 수 있습니다.");
+            throw new IllegalArgumentException(LottoErrorMessage.INVALID_CHARACTER.text());
         }
     }
 
