@@ -18,7 +18,17 @@ public class Lotto {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
         }
+        shouldThrowExceptionWhenOutOfRange(numbers);
     }
+
+    private void shouldThrowExceptionWhenOutOfRange(List<Integer> numbers) {
+        for (int number : numbers) {
+            if (number < 1 || 45 < number) {
+                throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
+            }
+        }
+    }
+
 
     public static Lotto from(String input) {
         validateInput(input);
