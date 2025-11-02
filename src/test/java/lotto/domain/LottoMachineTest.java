@@ -1,8 +1,10 @@
 package lotto.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import java.util.List;
+import lotto.exception.LottoMachineErrorMessage;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -29,6 +31,19 @@ class LottoMachineTest {
 
             assertThat(actual.getWinningNumbers().getNumbers()).isEqualTo(expectedWinningNumbers);
             assertThat(actual.getBonusNumber()).isEqualTo(expectedBonusNumber);
+        }
+
+        @Test
+        @DisplayName("숫자, 컴마(,) 외 다른 문자가 포함되어 있는 경우 예외 발생")
+        void 숫자_컴마_외_다른_문자가_포함되어_있는_경우_예외_발생() {
+            // given
+            String input = "1,2,3,4,5,A";
+            String bonusNumber = "3";
+
+            // when & then
+            assertThatThrownBy(() -> LottoMachine.from(input, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoMachineErrorMessage.INVALID_CHARACTER.text());
         }
     }
 }
