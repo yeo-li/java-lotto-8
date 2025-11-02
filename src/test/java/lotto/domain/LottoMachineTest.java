@@ -87,7 +87,7 @@ class LottoMachineTest {
 
         @Test
         @DisplayName("당첨 번호가 1 미만, 45 초과인 경우 예외 발생")
-        void 로또_번호가_1_미만_45_초과인_경우_예외_발생() {
+        void 당첨_번호가_1_미만_45_초과인_경우_예외_발생() {
             // given
             String input = "0,3,4,5,6,46";
             String bonusNumber = "3";
@@ -96,6 +96,19 @@ class LottoMachineTest {
             assertThatThrownBy(() -> LottoMachine.from(input, bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(LottoMachineErrorMessage.OUT_OF_RANGE.text());
+        }
+
+        @Test
+        @DisplayName("당첨 번호의 숫자가 중복되는 경우 예외 발생")
+        void 당첨_번호의_숫자가_중복되는_경우_예외_발생() {
+            // given
+            String input = "1,2,3,4,4,5";
+            String bonusNumber = "3";
+
+            // when & then
+            assertThatThrownBy(() -> LottoMachine.from(input, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoMachineErrorMessage.DUPLICATED_NUMBER.text());
         }
     }
 }
