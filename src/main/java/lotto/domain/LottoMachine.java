@@ -26,6 +26,7 @@ public class LottoMachine {
         shouldThrowExceptionInvalidCharacter(winningNumbers);
         shouldThrowExceptionInvalidCount(winningNumbers);
         shouldThrowExceptionEmptyInput(winningNumbers);
+        shouldThrowExceptionContainsWhitespace(winningNumbers);
     }
 
     private static void shouldThrowExceptionInvalidCharacter(String winningNumbers) {
@@ -58,6 +59,18 @@ public class LottoMachine {
             String exceptionMessage = e.getMessage();
             if (exceptionMessage.equals(LottoErrorMessage.EMPTY_INPUT.text())) {
                 throw new IllegalArgumentException(LottoMachineErrorMessage.EMPTY_INPUT.text());
+            }
+        }
+    }
+
+    private static void shouldThrowExceptionContainsWhitespace(String winningNumbers) {
+        try {
+            Lotto.from(winningNumbers);
+        } catch (IllegalArgumentException e) {
+            String exceptionMessage = e.getMessage();
+            if (exceptionMessage.equals(LottoErrorMessage.CONTAINS_WHITESPACE.text())) {
+                throw new IllegalArgumentException(
+                    LottoMachineErrorMessage.CONTAINS_WHITESPACE.text());
             }
         }
     }
