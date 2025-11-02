@@ -75,6 +75,18 @@ class MoneyTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(MoneyErrorMessage.ZERO_AMOUNT.text());
         }
-    }
 
+        @Test
+        @DisplayName("입력값이 공백인 경우 예외 발생")
+        void 입력값이_공백인_경우_예외_발생() {
+            // given
+            String input = "";
+
+            // when & then
+            assertThatThrownBy(() -> Money.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(MoneyErrorMessage.EMPTY_INPUT.text());
+        }
+    }
+    
 }
