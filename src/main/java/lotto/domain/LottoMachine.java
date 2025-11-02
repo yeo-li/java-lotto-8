@@ -28,6 +28,7 @@ public class LottoMachine {
         shouldThrowExceptionEmptyInput(winningNumbers);
         shouldThrowExceptionContainsWhitespace(winningNumbers);
         shouldThrowExceptionWhenOutOfRange(winningNumbers);
+        shouldThrowExceptionWhenDuplicatedNumber(winningNumbers);
     }
 
     private static void shouldThrowExceptionInvalidCharacter(String winningNumbers) {
@@ -84,6 +85,18 @@ public class LottoMachine {
             if (exceptionMessage.equals(LottoErrorMessage.OUT_OF_RANGE.text())) {
                 throw new IllegalArgumentException(
                     LottoMachineErrorMessage.OUT_OF_RANGE.text());
+            }
+        }
+    }
+
+    private static void shouldThrowExceptionWhenDuplicatedNumber(String winningNumbers) {
+        try {
+            Lotto.from(winningNumbers);
+        } catch (IllegalArgumentException e) {
+            String exceptionMessage = e.getMessage();
+            if (exceptionMessage.equals(LottoErrorMessage.DUPLICATED_NUMBER.text())) {
+                throw new IllegalArgumentException(
+                    LottoMachineErrorMessage.DUPLICATED_NUMBER.text());
             }
         }
     }
