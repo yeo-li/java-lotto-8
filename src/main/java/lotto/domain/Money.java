@@ -11,7 +11,8 @@ public class Money {
     public static Money from(String input) {
         try {
             validate();
-            return new Money(0);
+            int parsedInput = Integer.parseInt(input);
+            return new Money(parsedInput);
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException();
         }
