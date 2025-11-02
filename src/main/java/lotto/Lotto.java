@@ -23,17 +23,9 @@ public class Lotto {
         if (numbers.size() != 6) {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
         }
-        shouldThrowExceptionWhenOutOfRange(numbers);
         shouldThrowExceptionWhenDuplicatedNumber(numbers);
     }
 
-    private void shouldThrowExceptionWhenOutOfRange(List<Integer> numbers) {
-        for (int number : numbers) {
-            if (number < 1 || 45 < number) {
-                throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
-            }
-        }
-    }
 
     private void shouldThrowExceptionWhenDuplicatedNumber(List<Integer> numbers) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
@@ -56,6 +48,7 @@ public class Lotto {
         shouldThrowExceptionWhenEmptyInput(input);
         shouldThrowExceptionWhenInvalidCharacter(input);
         shouldThrowExceptionWhenContainsWhitespace(input);
+        shouldThrowExceptionWhenOutOfRange(input);
     }
 
     private static void shouldThrowExceptionWhenInvalidCharacter(String input) {
@@ -76,6 +69,21 @@ public class Lotto {
             if (number.isBlank()) {
                 throw new IllegalArgumentException(LottoErrorMessage.CONTAINS_WHITESPACE.text());
             }
+        }
+    }
+
+    private static void shouldThrowExceptionWhenOutOfRange(String input) {
+        List<Integer> parsedNumbers = null;
+        try {
+            parsedNumbers = Arrays.stream(Parser.parseInput(input))
+                .map(Integer::parseInt)
+                .toList();
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
+        }
+
+        if (parsedNumbers.stream().anyMatch(number -> number < 1 || number > 45)) {
+            throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
         }
     }
 
