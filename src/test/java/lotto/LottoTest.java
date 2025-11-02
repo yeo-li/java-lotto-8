@@ -65,5 +65,17 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(LottoErrorMessage.INVALID_COUNT.text());
         }
+
+        @Test
+        @DisplayName("로또 번호에 공백만 입력된 경우 예외 발생")
+        void 로또_번호에_공백만_입력된_경우_예외_발생() {
+            // given
+            String input = "";
+
+            // when & then
+            assertThatThrownBy(() -> Lotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoErrorMessage.EMPTY_INPUT.text());
+        }
     }
 }
