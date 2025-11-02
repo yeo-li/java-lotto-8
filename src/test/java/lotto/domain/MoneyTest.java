@@ -39,6 +39,18 @@ class MoneyTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(MoneyErrorMessage.NOT_NUMERIC.text());
         }
+
+        @Test
+        @DisplayName("금액이 int 자료형의 범위를 초과하는 경우 예외 발생")
+        void 금액이_int_자료형의_범위를_초과하는_경우_예외_발생() {
+            // given
+            String input = "10000000000000000000";
+
+            // when & then
+            assertThatThrownBy(() -> Money.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(MoneyErrorMessage.OUT_OF_INTEGER_RANGE.text());
+        }
     }
 
 }
