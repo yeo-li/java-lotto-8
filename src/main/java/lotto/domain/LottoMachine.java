@@ -1,6 +1,7 @@
 package lotto.domain;
 
 import lotto.Lotto;
+import lotto.exception.LottoErrorMessage;
 import lotto.exception.LottoMachineErrorMessage;
 
 public class LottoMachine {
@@ -23,15 +24,30 @@ public class LottoMachine {
 
     private static void validateWinningNumbers(String winningNumbers) {
         shouldThrowExceptionInvalidCharacter(winningNumbers);
+        shouldThrowExceptionInvalidCount(winningNumbers);
     }
 
     private static void shouldThrowExceptionInvalidCharacter(String winningNumbers) {
         try {
             Lotto.from(winningNumbers);
         } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException(LottoMachineErrorMessage.INVALID_CHARACTER.text());
+            String exceptionMessage = e.getMessage();
+            if (exceptionMessage.equals(LottoErrorMessage.INVALID_CHARACTER.text())) {
+                throw new IllegalArgumentException(
+                    LottoMachineErrorMessage.INVALID_CHARACTER.text());
+            }
         }
+    }
 
+    private static void shouldThrowExceptionInvalidCount(String winningNumbers) {
+        try {
+            Lotto.from(winningNumbers);
+        } catch (IllegalArgumentException e) {
+            String exceptionMessage = e.getMessage();
+            if (exceptionMessage.equals(LottoErrorMessage.INVALID_COUNT.text())) {
+                throw new IllegalArgumentException(LottoMachineErrorMessage.INVALID_COUNT.text());
+            }
+        }
     }
 
     private static void validateBonusNumber(String bonusNumber) {
