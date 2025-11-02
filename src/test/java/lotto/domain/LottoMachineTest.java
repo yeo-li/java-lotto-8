@@ -47,8 +47,8 @@ class LottoMachineTest {
         }
 
         @Test
-        @DisplayName("로또 번호의 갯수가 6개가 아닌 경우 예외 발생")
-        void 로또_번호의_갯수가_6개가_아닌_경우_예외_발생() {
+        @DisplayName("당첨 번호의 갯수가 6개가 아닌 경우 예외 발생")
+        void 당첨_번호의_갯수가_6개가_아닌_경우_예외_발생() {
             // given
             String input = "1,2,3,4,5,6,7";
             String bonusNumber = "3";
@@ -60,8 +60,8 @@ class LottoMachineTest {
         }
 
         @Test
-        @DisplayName("로또 번호에 공백만 입력된 경우 예외 발생")
-        void 로또_번호에_공백만_입력된_경우_예외_발생() {
+        @DisplayName("당첨 번호에 공백만 입력된 경우 예외 발생")
+        void 당첨_번호에_공백만_입력된_경우_예외_발생() {
             // given
             String input = "";
             String bonusNumber = "3";
@@ -70,6 +70,19 @@ class LottoMachineTest {
             assertThatThrownBy(() -> LottoMachine.from(input, bonusNumber))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(LottoMachineErrorMessage.EMPTY_INPUT.text());
+        }
+
+        @Test
+        @DisplayName("당첨 번호에 공백이 포함되어 있는 경우 예외 발생")
+        void 당첨_번호에_공백이_포함되어_있는_경우_예외_발생() {
+            // given
+            String input = "1,2,3,,4,5";
+            String bonusNumber = "3";
+
+            // when & then
+            assertThatThrownBy(() -> LottoMachine.from(input, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoMachineErrorMessage.CONTAINS_WHITESPACE.text());
         }
     }
 }
