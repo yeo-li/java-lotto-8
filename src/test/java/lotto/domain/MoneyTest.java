@@ -51,6 +51,18 @@ class MoneyTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(MoneyErrorMessage.OUT_OF_INTEGER_RANGE.text());
         }
+
+        @Test
+        @DisplayName("금액이 1,000원 단위로 나누어 떨어지지 않는 경우 예외 발생")
+        void 금액이_천원_단위로_나누어_떨어지지_않는_경우_예외_발생() {
+            // given
+            String input = "10001";
+
+            // when & then
+            assertThatThrownBy(() -> Money.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(MoneyErrorMessage.NOT_DIVISIBLE_BY_THOUSAND.text());
+        }
     }
 
 }
