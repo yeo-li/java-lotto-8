@@ -1,0 +1,105 @@
+package lotto.domain;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.util.List;
+import lotto.exception.WinningLottoErrorMessage;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+class WinningLottoTest {
+
+
+    @Nested
+    @DisplayName("from() 테스트")
+    class FromTest {
+
+        @Test
+        @DisplayName("변환 성공")
+        void 변환_성공() {
+            // given
+            String input = "1,2,3,4,5,6";
+
+            // when
+            WinningLotto actual = WinningLotto.from(input);
+
+            // then
+            List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
+            assertThat(actual.getNumbers()).isEqualTo(expected);
+        }
+
+        @Test
+        @DisplayName("숫자, 컴마(,) 외 다른 문자가 포함되어 있는 경우 예외 발생")
+        void 숫자_컴마_외_다른_문자가_포함되어_있는_경우_예외_발생() {
+            // given
+            String input = "1,2,3,4,5,A";
+
+            // when & then
+            assertThatThrownBy(() -> WinningLotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(WinningLottoErrorMessage.INVALID_CHARACTER.text());
+        }
+
+        @Test
+        @DisplayName("당첨 번호의 갯수가 6개가 아닌 경우 예외 발생")
+        void 당첨_번호의_갯수가_6개가_아닌_경우_예외_발생() {
+            // given
+            String input = "1,2,3,4,5,6,7";
+
+            // when & then
+            assertThatThrownBy(() -> WinningLotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(WinningLottoErrorMessage.INVALID_COUNT.text());
+        }
+
+        @Test
+        @DisplayName("당첨 번호에 공백만 입력된 경우 예외 발생")
+        void 당첨_번호에_공백만_입력된_경우_예외_발생() {
+            // given
+            String input = "";
+
+            // when & then
+            assertThatThrownBy(() -> WinningLotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(WinningLottoErrorMessage.EMPTY_INPUT.text());
+        }
+
+        @Test
+        @DisplayName("당첨 번호에 공백이 포함되어 있는 경우 예외 발생")
+        void 당첨_번호에_공백이_포함되어_있는_경우_예외_발생() {
+            // given
+            String input = "1,2,3,,4,5";
+
+            // when & then
+            assertThatThrownBy(() -> WinningLotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(WinningLottoErrorMessage.CONTAINS_WHITESPACE.text());
+        }
+
+        @Test
+        @DisplayName("당첨 번호가 1 미만, 45 초과인 경우 예외 발생")
+        void 당첨_번호가_1_미만_45_초과인_경우_예외_발생() {
+            // given
+            String input = "0,3,4,5,6,46";
+
+            // when & then
+            assertThatThrownBy(() -> WinningLotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(WinningLottoErrorMessage.OUT_OF_RANGE.text());
+        }
+
+        @Test
+        @DisplayName("당첨 번호의 숫자가 중복되는 경우 예외 발생")
+        void 당첨_번호의_숫자가_중복되는_경우_예외_발생() {
+            // given
+            String input = "1,2,3,4,4,5";
+
+            // when & then
+            assertThatThrownBy(() -> WinningLotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(WinningLottoErrorMessage.DUPLICATED_NUMBER.text());
+        }
+    }
+}
