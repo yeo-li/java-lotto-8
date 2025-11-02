@@ -63,6 +63,18 @@ class MoneyTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(MoneyErrorMessage.NOT_DIVISIBLE_BY_THOUSAND.text());
         }
+
+        @Test
+        @DisplayName("입력값이 0인 경우 예외 발생")
+        void 입력값이_0인_경우_예외_발생() {
+            // given
+            String input = "0";
+
+            // when & then
+            assertThatThrownBy(() -> Money.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(MoneyErrorMessage.ZERO_AMOUNT.text());
+        }
     }
 
 }
