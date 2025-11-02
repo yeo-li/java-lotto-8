@@ -30,7 +30,13 @@ public class Lotto {
     }
 
     private static void validateInput(String input) {
+        shouldThrowExceptionWhenInvalidCharacter(input);
+    }
 
+    private static void shouldThrowExceptionWhenInvalidCharacter(String input) {
+        if (!input.matches("[0-9,]+")) {
+            throw new IllegalArgumentException("[ERROR] 당첨 번호에는 숫자와 컴마(,)만 포함될 수 있습니다.");
+        }
     }
 
     public List<Integer> getNumbers() {
