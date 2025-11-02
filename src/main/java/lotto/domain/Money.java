@@ -22,6 +22,7 @@ public class Money {
 
     private static void validate(String input) {
         shouldThrowExceptionWhenNonNumeric(input);
+        shouldThrowExceptionWhenOutOfIntegerRange(input);
     }
 
     private static void shouldThrowExceptionWhenNonNumeric(String input) {
@@ -31,6 +32,15 @@ public class Money {
             }
         }
     }
+
+    private static void shouldThrowExceptionWhenOutOfIntegerRange(String input) {
+        try {
+            Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException(MoneyErrorMessage.OUT_OF_INTEGER_RANGE.text());
+        }
+    }
+
 
     public int getAmount() {
         return this.amount;
