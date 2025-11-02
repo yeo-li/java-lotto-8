@@ -43,6 +43,20 @@ class LottoTest {
         }
 
         @Test
+        @DisplayName("변환 후 오름차순 정렬 성공")
+        void 변환_후_오름차순_정렬_성공() {
+            // given
+            String input = "10,30,20,11,45,1";
+
+            // when
+            Lotto actual = Lotto.from(input);
+
+            // then
+            List<Integer> expected = List.of(1, 10, 11, 20, 30, 45);
+            assertThat(actual.getNumbers()).isEqualTo(expected);
+        }
+
+        @Test
         @DisplayName("숫자, 컴마(,) 외 다른 문자가 포함되어 있는 경우 예외 발생")
         void 숫자_컴마_외_다른_문자가_포함되어_있는_경우_예외_발생() {
             // given
