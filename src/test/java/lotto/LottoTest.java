@@ -43,8 +43,8 @@ class LottoTest {
         }
 
         @Test
-        @DisplayName("변환 후 오름차순 정렬 성공")
-        void 변환_후_오름차순_정렬_성공() {
+        @DisplayName("변환 시 오름차순 정렬 성공")
+        void 변환_시_오름차순_정렬_성공() {
             // given
             String input = "10,30,20,11,45,1";
 
