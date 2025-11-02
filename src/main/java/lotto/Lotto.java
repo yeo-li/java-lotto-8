@@ -31,12 +31,19 @@ public class Lotto {
     }
 
     private static void validateInput(String input) {
+        shouldThrowExceptionWhenEmptyInput(input);
         shouldThrowExceptionWhenInvalidCharacter(input);
     }
 
     private static void shouldThrowExceptionWhenInvalidCharacter(String input) {
         if (!input.matches("[0-9,]+")) {
             throw new IllegalArgumentException(LottoErrorMessage.INVALID_CHARACTER.text());
+        }
+    }
+
+    private static void shouldThrowExceptionWhenEmptyInput(String input) {
+        if (input.isBlank()) {
+            throw new IllegalArgumentException(LottoErrorMessage.EMPTY_INPUT.text());
         }
     }
 
