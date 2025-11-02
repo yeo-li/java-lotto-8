@@ -1,7 +1,9 @@
 package lotto;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import lotto.exception.LottoErrorMessage;
 import lotto.util.Parser;
 
@@ -19,6 +21,7 @@ public class Lotto {
             throw new IllegalArgumentException("[ERROR] 로또 번호는 6개여야 합니다.");
         }
         shouldThrowExceptionWhenOutOfRange(numbers);
+        shouldThrowExceptionWhenDuplicatedNumber(numbers);
     }
 
     private void shouldThrowExceptionWhenOutOfRange(List<Integer> numbers) {
@@ -26,6 +29,13 @@ public class Lotto {
             if (number < 1 || 45 < number) {
                 throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
             }
+        }
+    }
+
+    private void shouldThrowExceptionWhenDuplicatedNumber(List<Integer> numbers) {
+        Set<Integer> uniqueNumbers = new HashSet<>(numbers);
+        if (uniqueNumbers.size() != numbers.size()) {
+            throw new IllegalArgumentException(LottoErrorMessage.DUPLICATED_NUMBER.text());
         }
     }
 
