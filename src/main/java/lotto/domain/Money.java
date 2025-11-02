@@ -21,13 +21,14 @@ public class Money {
     }
 
     private static void validate(String input) {
-        shouldThrowExceptionWhenNegativeAmount(input);
+        shouldThrowExceptionWhenNonNumeric(input);
     }
 
-    private static void shouldThrowExceptionWhenNegativeAmount(String input) {
-        int parsedInput = Integer.parseInt(input);
-        if (parsedInput < 0) {
-            throw new IllegalArgumentException(MoneyErrorMessage.NEGATIVE_AMOUNT.text());
+    private static void shouldThrowExceptionWhenNonNumeric(String input) {
+        for (char c : input.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                throw new IllegalArgumentException(MoneyErrorMessage.NOT_NUMERIC.text());
+            }
         }
     }
 
