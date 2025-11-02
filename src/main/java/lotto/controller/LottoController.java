@@ -1,5 +1,6 @@
 package lotto.controller;
 
+import lotto.domain.LottoMachine;
 import lotto.domain.Money;
 import lotto.domain.WinningLotto;
 import lotto.util.Parser;
@@ -15,7 +16,10 @@ public class LottoController {
 
     public void run() {
         Money money = createMoney();
+
         WinningLotto winningLotto = createWinningLotto();
+        LottoMachine lottoMachine = createLottoMachine(winningLotto);
+
     }
 
     private Money createMoney() {
@@ -34,6 +38,17 @@ public class LottoController {
             try {
                 String input = Parser.removeAllSpaces(inputView.inputWinningNumbers());
                 return WinningLotto.from(input);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
+    private LottoMachine createLottoMachine(WinningLotto winningLotto) {
+        while (true) {
+            try {
+                String input = Parser.removeAllSpaces(inputView.inputBonusNumber());
+                return LottoMachine.from(winningLotto, input);
             } catch (IllegalArgumentException e) {
                 System.out.println(e.getMessage());
             }
