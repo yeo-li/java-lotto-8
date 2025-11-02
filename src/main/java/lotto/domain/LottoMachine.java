@@ -1,111 +1,27 @@
 package lotto.domain;
 
-import lotto.Lotto;
-import lotto.exception.LottoErrorMessage;
-import lotto.exception.LottoMachineErrorMessage;
-
 public class LottoMachine {
 
-    private final Lotto winningNumbers;
+    private final WinningLotto winningNumbers;
     private final int bonusNumber;
 
 
-    private LottoMachine(Lotto winningNumbers, int bonusNumber) {
+    public LottoMachine(WinningLotto winningNumbers, int bonusNumber) {
         this.winningNumbers = winningNumbers;
         this.bonusNumber = bonusNumber;
     }
 
-    public static LottoMachine from(String winningNumbers, String bonusNumber) {
-        validateWinningNumbers(winningNumbers);
+    public static LottoMachine from(WinningLotto winningLotto, String bonusNumber) {
         validateBonusNumber(bonusNumber);
-
-        return new LottoMachine(Lotto.from(winningNumbers), Integer.parseInt(bonusNumber));
+        return new LottoMachine(winningLotto, Integer.parseInt(bonusNumber));
     }
 
-    private static void validateWinningNumbers(String winningNumbers) {
-        shouldThrowExceptionInvalidCharacter(winningNumbers);
-        shouldThrowExceptionInvalidCount(winningNumbers);
-        shouldThrowExceptionEmptyInput(winningNumbers);
-        shouldThrowExceptionContainsWhitespace(winningNumbers);
-        shouldThrowExceptionWhenOutOfRange(winningNumbers);
-        shouldThrowExceptionWhenDuplicatedNumber(winningNumbers);
-    }
-
-    private static void shouldThrowExceptionInvalidCharacter(String winningNumbers) {
-        try {
-            Lotto.from(winningNumbers);
-        } catch (IllegalArgumentException e) {
-            String exceptionMessage = e.getMessage();
-            if (exceptionMessage.equals(LottoErrorMessage.INVALID_CHARACTER.text())) {
-                throw new IllegalArgumentException(
-                    LottoMachineErrorMessage.INVALID_CHARACTER.text());
-            }
-        }
-    }
-
-    private static void shouldThrowExceptionInvalidCount(String winningNumbers) {
-        try {
-            Lotto.from(winningNumbers);
-        } catch (IllegalArgumentException e) {
-            String exceptionMessage = e.getMessage();
-            if (exceptionMessage.equals(LottoErrorMessage.INVALID_COUNT.text())) {
-                throw new IllegalArgumentException(LottoMachineErrorMessage.INVALID_COUNT.text());
-            }
-        }
-    }
-
-    private static void shouldThrowExceptionEmptyInput(String winningNumbers) {
-        try {
-            Lotto.from(winningNumbers);
-        } catch (IllegalArgumentException e) {
-            String exceptionMessage = e.getMessage();
-            if (exceptionMessage.equals(LottoErrorMessage.EMPTY_INPUT.text())) {
-                throw new IllegalArgumentException(LottoMachineErrorMessage.EMPTY_INPUT.text());
-            }
-        }
-    }
-
-    private static void shouldThrowExceptionContainsWhitespace(String winningNumbers) {
-        try {
-            Lotto.from(winningNumbers);
-        } catch (IllegalArgumentException e) {
-            String exceptionMessage = e.getMessage();
-            if (exceptionMessage.equals(LottoErrorMessage.CONTAINS_WHITESPACE.text())) {
-                throw new IllegalArgumentException(
-                    LottoMachineErrorMessage.CONTAINS_WHITESPACE.text());
-            }
-        }
-    }
-
-    private static void shouldThrowExceptionWhenOutOfRange(String winningNumbers) {
-        try {
-            Lotto.from(winningNumbers);
-        } catch (IllegalArgumentException e) {
-            String exceptionMessage = e.getMessage();
-            if (exceptionMessage.equals(LottoErrorMessage.OUT_OF_RANGE.text())) {
-                throw new IllegalArgumentException(
-                    LottoMachineErrorMessage.OUT_OF_RANGE.text());
-            }
-        }
-    }
-
-    private static void shouldThrowExceptionWhenDuplicatedNumber(String winningNumbers) {
-        try {
-            Lotto.from(winningNumbers);
-        } catch (IllegalArgumentException e) {
-            String exceptionMessage = e.getMessage();
-            if (exceptionMessage.equals(LottoErrorMessage.DUPLICATED_NUMBER.text())) {
-                throw new IllegalArgumentException(
-                    LottoMachineErrorMessage.DUPLICATED_NUMBER.text());
-            }
-        }
-    }
 
     private static void validateBonusNumber(String bonusNumber) {
 
     }
 
-    public Lotto getWinningNumbers() {
+    public WinningLotto getWinningNumbers() {
         return winningNumbers;
     }
 

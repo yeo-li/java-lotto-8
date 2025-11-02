@@ -1,6 +1,6 @@
 package lotto.exception;
 
-public enum LottoMachineErrorMessage {
+public enum WinningLottoErrorMessage {
     INVALID_CHARACTER("당첨 번호에는 숫자와 컴마(,)만 포함될 수 있습니다."),
     INVALID_COUNT("당첨 번호는 6개여야 합니다."),
     OUT_OF_RANGE("당첨 번호는 1부터 45 사이의 숫자여야 합니다."),
@@ -10,7 +10,7 @@ public enum LottoMachineErrorMessage {
 
     private final String message;
 
-    LottoMachineErrorMessage(String message) {
+    WinningLottoErrorMessage(String message) {
         this.message = message;
     }
 
