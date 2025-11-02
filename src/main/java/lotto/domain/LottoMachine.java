@@ -27,6 +27,7 @@ public class LottoMachine {
         shouldThrowExceptionInvalidCount(winningNumbers);
         shouldThrowExceptionEmptyInput(winningNumbers);
         shouldThrowExceptionContainsWhitespace(winningNumbers);
+        shouldThrowExceptionWhenOutOfRange(winningNumbers);
     }
 
     private static void shouldThrowExceptionInvalidCharacter(String winningNumbers) {
@@ -71,6 +72,18 @@ public class LottoMachine {
             if (exceptionMessage.equals(LottoErrorMessage.CONTAINS_WHITESPACE.text())) {
                 throw new IllegalArgumentException(
                     LottoMachineErrorMessage.CONTAINS_WHITESPACE.text());
+            }
+        }
+    }
+
+    private static void shouldThrowExceptionWhenOutOfRange(String winningNumbers) {
+        try {
+            Lotto.from(winningNumbers);
+        } catch (IllegalArgumentException e) {
+            String exceptionMessage = e.getMessage();
+            if (exceptionMessage.equals(LottoErrorMessage.OUT_OF_RANGE.text())) {
+                throw new IllegalArgumentException(
+                    LottoMachineErrorMessage.OUT_OF_RANGE.text());
             }
         }
     }
