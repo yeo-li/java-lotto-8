@@ -22,6 +22,7 @@ public class Money {
 
     private static void validate(String input) {
         shouldThrowExceptionWhenNonNumeric(input);
+        shouldThrowExceptionWhenEmptyInput(input);
         shouldThrowExceptionWhenOutOfIntegerRange(input);
         shouldThrowExceptionWhenNotDivisibleByThousand(input);
         shouldThrowExceptionWhenZeroAmount(input);
@@ -54,6 +55,12 @@ public class Money {
         int amount = Integer.parseInt(input);
         if (amount == 0) {
             throw new IllegalArgumentException(MoneyErrorMessage.ZERO_AMOUNT.text());
+        }
+    }
+
+    private static void shouldThrowExceptionWhenEmptyInput(String input) {
+        if (input.isBlank()) {
+            throw new IllegalArgumentException(MoneyErrorMessage.EMPTY_INPUT.text());
         }
     }
 
