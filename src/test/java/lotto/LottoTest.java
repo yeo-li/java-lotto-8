@@ -101,5 +101,17 @@ class LottoTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage(LottoErrorMessage.OUT_OF_RANGE.text());
         }
+
+        @Test
+        @DisplayName("로또 번호의 숫자가 중복되는 경우 예외 발생")
+        void 로또_번호의_숫자가_중복되는_경우_예외_발생() {
+            // given
+            String input = "1,2,3,4,4,5";
+
+            // when & then
+            assertThatThrownBy(() -> Lotto.from(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoErrorMessage.DUPLICATED_NUMBER.text());
+        }
     }
 }
