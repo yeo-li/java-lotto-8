@@ -47,5 +47,18 @@ class LottoMachineTest {
                 .hasMessage(LottoMachineErrorMessage.INVALID_CHARACTER.text());
         }
 
+        @Test
+        @DisplayName("보너스 번호가 1 미만, 45 초과인 경우 예외 발생")
+        void 보너스_번호가_1_미만_45_초과인_경우_예외_발생() {
+            // given
+            WinningLotto winningNumbers = WinningLotto.from("10,30,20,11,45,1");
+            String bonusNumber = "0";
+
+            // when & then
+            assertThatThrownBy(() -> LottoMachine.from(winningNumbers, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoMachineErrorMessage.OUT_OF_RANGE.text());
+        }
+
     }
 }
