@@ -6,6 +6,7 @@ public class InputView {
 
     private static final String PROMPT_PURCHASE_AMOUNT_MESSAGE = "구입금액을 입력해 주세요.";
     private static final String PROMPT_WINNING_NUMBERS_MESSAGE = "당첨 번호를 입력해 주세요.";
+    private static final String PROMPT_BONUS_NUMBER_MESSAGE = "보너스 번호를 입력해 주세요.";
 
     public String inputPurchaseAmount() {
         System.out.println(PROMPT_PURCHASE_AMOUNT_MESSAGE);
@@ -14,6 +15,11 @@ public class InputView {
 
     public String inputWinningNumbers() {
         System.out.println(PROMPT_WINNING_NUMBERS_MESSAGE);
+        return Console.readLine();
+    }
+
+    public String inputBonusNumber() {
+        System.out.println(PROMPT_BONUS_NUMBER_MESSAGE);
         return Console.readLine();
     }
 }
