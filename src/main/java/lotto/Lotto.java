@@ -1,9 +1,11 @@
 package lotto;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import lotto.exception.LottoErrorMessage;
 import lotto.util.Parser;
 
@@ -13,6 +15,7 @@ public class Lotto {
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
+        Collections.sort(numbers);
         this.numbers = numbers;
     }
 
@@ -39,13 +42,12 @@ public class Lotto {
         }
     }
 
-
     public static Lotto from(String input) {
         validateInput(input);
 
         List<Integer> parsedNumbers = Arrays.stream(Parser.parseInput(input))
             .map(Integer::parseInt)
-            .toList();
+            .collect(Collectors.toList());
 
         return new Lotto(parsedNumbers);
     }
