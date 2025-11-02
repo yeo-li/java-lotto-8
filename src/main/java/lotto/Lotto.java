@@ -33,6 +33,7 @@ public class Lotto {
     private static void validateInput(String input) {
         shouldThrowExceptionWhenEmptyInput(input);
         shouldThrowExceptionWhenInvalidCharacter(input);
+        shouldThrowExceptionWhenContainsWhitespace(input);
     }
 
     private static void shouldThrowExceptionWhenInvalidCharacter(String input) {
@@ -44,6 +45,15 @@ public class Lotto {
     private static void shouldThrowExceptionWhenEmptyInput(String input) {
         if (input.isBlank()) {
             throw new IllegalArgumentException(LottoErrorMessage.EMPTY_INPUT.text());
+        }
+    }
+
+    private static void shouldThrowExceptionWhenContainsWhitespace(String input) {
+        String[] parsedInput = Parser.parseInput(input);
+        for (String number : parsedInput) {
+            if (number.isBlank()) {
+                throw new IllegalArgumentException(LottoErrorMessage.CONTAINS_WHITESPACE.text());
+            }
         }
     }
 
