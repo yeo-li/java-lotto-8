@@ -60,5 +60,18 @@ class LottoMachineTest {
                 .hasMessage(LottoMachineErrorMessage.OUT_OF_RANGE.text());
         }
 
+        @Test
+        @DisplayName("당첨 번호와 중복되는 경우 예외 발생")
+        void 당첨_번호와_중복되는_경우_예외_발생() {
+            // given
+            WinningLotto winningNumbers = WinningLotto.from("12,30,20,11,45,1");
+            String bonusNumber = "45";
+
+            // when & then
+            assertThatThrownBy(() -> LottoMachine.from(winningNumbers, bonusNumber))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(LottoMachineErrorMessage.DUPLICATED_NUMBER.text());
+        }
+
     }
 }
