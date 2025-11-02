@@ -25,6 +25,7 @@ public class LottoMachine {
     private static void validateWinningNumbers(String winningNumbers) {
         shouldThrowExceptionInvalidCharacter(winningNumbers);
         shouldThrowExceptionInvalidCount(winningNumbers);
+        shouldThrowExceptionEmptyInput(winningNumbers);
     }
 
     private static void shouldThrowExceptionInvalidCharacter(String winningNumbers) {
@@ -46,6 +47,17 @@ public class LottoMachine {
             String exceptionMessage = e.getMessage();
             if (exceptionMessage.equals(LottoErrorMessage.INVALID_COUNT.text())) {
                 throw new IllegalArgumentException(LottoMachineErrorMessage.INVALID_COUNT.text());
+            }
+        }
+    }
+
+    private static void shouldThrowExceptionEmptyInput(String winningNumbers) {
+        try {
+            Lotto.from(winningNumbers);
+        } catch (IllegalArgumentException e) {
+            String exceptionMessage = e.getMessage();
+            if (exceptionMessage.equals(LottoErrorMessage.EMPTY_INPUT.text())) {
+                throw new IllegalArgumentException(LottoMachineErrorMessage.EMPTY_INPUT.text());
             }
         }
     }
