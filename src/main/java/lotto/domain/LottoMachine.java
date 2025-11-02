@@ -1,62 +1,32 @@
 package lotto.domain;
 
+import camp.nextstep.edu.missionutils.Randoms;
+import java.util.ArrayList;
 import java.util.List;
-import lotto.exception.LottoMachineErrorMessage;
+import lotto.Lotto;
 
 public class LottoMachine {
 
-    private final WinningLotto winningNumbers;
-    private final int bonusNumber;
+    private static final int LOTTO_PRICE = 1000;
+    private static final int LOTTO_NUMBER_MIN = 1;
+    private static final int LOTTO_NUMBER_MAX = 45;
+    private static final int LOTTO_NUMBER_COUNT = 6;
 
+    public static List<Lotto> issueLottoByAmount(Money money) {
+        int ticketCount = money.getAmount() / LOTTO_PRICE;
 
-    private LottoMachine(WinningLotto winningNumbers, int bonusNumber) {
-        this.winningNumbers = winningNumbers;
-        this.bonusNumber = bonusNumber;
-    }
-
-    public static LottoMachine from(WinningLotto winningLotto, String bonusNumber) {
-        validateBonusNumber(winningLotto, bonusNumber);
-        return new LottoMachine(winningLotto, Integer.parseInt(bonusNumber));
-    }
-
-
-    private static void validateBonusNumber(WinningLotto winningLotto, String bonusNumber) {
-        shouldThrowExceptionWhenInvalidCharacter(bonusNumber);
-        shouldThrowExceptionWhenOutOfRange(bonusNumber);
-        shouldThrowExceptionWhenDuplicated(winningLotto, bonusNumber);
-    }
-
-    private static void shouldThrowExceptionWhenInvalidCharacter(String bonusNumber) {
-        if (!bonusNumber.matches("[0-9,]+")) {
-            throw new IllegalArgumentException(LottoMachineErrorMessage.INVALID_CHARACTER.text());
+        List<Lotto> issuedLotto = new ArrayList<>();
+        while (ticketCount-- > 0) {
+            issuedLotto.add(generateLotto());
         }
+
+        return issuedLotto;
     }
 
-    private static void shouldThrowExceptionWhenOutOfRange(String bonusNumber) {
-        try {
-            int number = Integer.parseInt(bonusNumber);
-            if (number < 1 || 45 < number) {
-                throw new IllegalArgumentException(LottoMachineErrorMessage.OUT_OF_RANGE.text());
-            }
-        } catch (NumberFormatException e) {
-            throw new IllegalArgumentException(LottoMachineErrorMessage.OUT_OF_RANGE.text());
-        }
-    }
-
-    private static void shouldThrowExceptionWhenDuplicated(WinningLotto winningLotto,
-        String input) {
-        int bonusNumber = Integer.parseInt(input);
-        List<Integer> numbers = winningLotto.getNumbers();
-        if (numbers.contains(bonusNumber)) {
-            throw new IllegalArgumentException(LottoMachineErrorMessage.DUPLICATED_NUMBER.text());
-        }
-    }
-
-    public WinningLotto getWinningNumbers() {
-        return winningNumbers;
-    }
-
-    public int getBonusNumber() {
-        return bonusNumber;
+    private static Lotto generateLotto() {
+        List<Integer> randomNumbers = Randoms.pickUniqueNumbersInRange(
+            LOTTO_NUMBER_MIN, LOTTO_NUMBER_MAX, LOTTO_NUMBER_COUNT
+        );
+        return new Lotto(randomNumbers);
     }
 }
