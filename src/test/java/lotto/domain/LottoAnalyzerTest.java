@@ -168,5 +168,21 @@ class LottoAnalyzerTest {
             assertThat(actual).isZero();
         }
 
+
+        @Test
+        @DisplayName("로또 리스트가 비어있을 경우 수익률은 0.0을 반환")
+        void 로또_리스트가_비어있을_경우_수익률은_0을_반환() {
+            // given
+            WinningLotto winningLotto = WinningLotto.from("1,2,3,4,5,6");
+            LottoAnalyzer analyzer = LottoAnalyzer.from(winningLotto, "7");
+            Money money = Money.from("1000");
+
+            // when
+            double profitRate = analyzer.calculateProfitRate(List.of(), money);
+
+            // then
+            assertThat(profitRate).isZero();
+        }
+
     }
 }
