@@ -1,6 +1,8 @@
 package lotto.domain;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 import lotto.exception.LottoAnalyzerErrorMessage;
 
 public class LottoAnalyzer {
@@ -48,6 +50,19 @@ public class LottoAnalyzer {
         if (numbers.contains(bonusNumber)) {
             throw new IllegalArgumentException(LottoAnalyzerErrorMessage.DUPLICATED_NUMBER.text());
         }
+    }
+
+    public Map<Rank, Integer> analyze(List<Lotto> lottos) {
+        Map<Rank, Integer> statistics = new EnumMap<>(Rank.class);
+
+        for (Lotto lotto : lottos) {
+            int matchCount = lotto.countMatchingNumbers(winningNumbers.getLotto());
+            boolean matchBonus = lotto.contains(bonusNumber);
+            Rank rank = Rank.valueOf(matchCount, matchBonus);
+            statistics.merge(rank, 1, Integer::sum);
+        }
+
+        return statistics;
     }
 
     public WinningLotto getWinningNumbers() {
