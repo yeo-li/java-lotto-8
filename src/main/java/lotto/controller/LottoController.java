@@ -8,6 +8,7 @@ import lotto.domain.LottoMachine;
 import lotto.domain.Money;
 import lotto.domain.Rank;
 import lotto.domain.WinningLotto;
+import lotto.dto.WinningStatisticResponse;
 import lotto.util.Parser;
 import lotto.view.InputView;
 import lotto.view.OutputView;
@@ -31,6 +32,7 @@ public class LottoController {
         LottoAnalyzer lottoAnalyzer = createLottoMachine(winningLotto);
 
         Map<Rank, Integer> statistics = lottoAnalyzer.analyze(lottos);
+        outputView.printWinningStatistics(WinningStatisticResponse.from(statistics));
 
         double profitRate = lottoAnalyzer.calculateProfitRate(lottos, money);
 
