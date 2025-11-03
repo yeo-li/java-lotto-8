@@ -1,10 +1,9 @@
 package lotto.domain;
 
+import lotto.enums.LottoConstant;
 import lotto.exception.MoneyErrorMessage;
 
 public class Money {
-
-    private static final int LOTTO_PRICE = 1000;
 
     private final int amount;
 
@@ -48,7 +47,7 @@ public class Money {
 
     private static void shouldThrowExceptionWhenNotDivisibleByThousand(String input) {
         int amount = Integer.parseInt(input);
-        if (amount % LOTTO_PRICE != 0) {
+        if (amount % LottoConstant.LOTTO_PRICE != 0) {
             throw new IllegalArgumentException(MoneyErrorMessage.NOT_DIVISIBLE_BY_THOUSAND.text());
         }
     }

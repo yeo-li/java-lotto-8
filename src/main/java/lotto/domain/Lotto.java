@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import lotto.enums.LottoConstant;
 import lotto.exception.LottoErrorMessage;
 import lotto.util.Parser;
 
@@ -20,7 +21,7 @@ public record Lotto(List<Integer> numbers) {
     }
 
     private void validate(List<Integer> numbers) {
-        if (numbers.size() != 6) {
+        if (numbers.size() != LottoConstant.LOTTO_NUMBER_COUNT) {
             throw new IllegalArgumentException(LottoErrorMessage.INVALID_COUNT.text());
         }
         shouldThrowExceptionWhenDuplicatedNumber(numbers);
@@ -81,7 +82,8 @@ public record Lotto(List<Integer> numbers) {
             throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
         }
 
-        if (parsedNumbers.stream().anyMatch(number -> number < 1 || number > 45)) {
+        if (parsedNumbers.stream().anyMatch(number -> number < LottoConstant.LOTTO_NUMBER_MIN
+            || number > LottoConstant.LOTTO_NUMBER_MAX)) {
             throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
         }
     }
