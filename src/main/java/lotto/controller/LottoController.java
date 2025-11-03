@@ -36,7 +36,7 @@ public class LottoController {
         outputView.printWinningStatistics(WinningStatisticResponse.from(statistics));
 
         double profitRate = lottoAnalyzer.calculateProfitRate(lottos, money);
-
+        outputView.printProfitRate(profitRate);
     }
 
     private Money createMoney() {
