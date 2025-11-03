@@ -94,6 +94,10 @@ public class Lotto {
         return (int) matchCount;
     }
 
+    public String format() {
+        return numbers.toString();
+    }
+
     public boolean contains(int bonusNumber) {
         return numbers.contains(bonusNumber);
     }

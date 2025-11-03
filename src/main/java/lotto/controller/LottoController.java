@@ -10,18 +10,22 @@ import lotto.domain.Rank;
 import lotto.domain.WinningLotto;
 import lotto.util.Parser;
 import lotto.view.InputView;
+import lotto.view.OutputView;
 
 public class LottoController {
 
     private final InputView inputView;
+    private final OutputView outputView;
 
-    public LottoController(InputView inputView) {
+    public LottoController(InputView inputView, OutputView outputView) {
         this.inputView = inputView;
+        this.outputView = outputView;
     }
 
     public void run() {
         Money money = createMoney();
         List<Lotto> lottos = LottoMachine.issueLottoByAmount(money);
+        outputView.printLottos(lottos);
 
         WinningLotto winningLotto = createWinningLotto();
         LottoAnalyzer lottoAnalyzer = createLottoMachine(winningLotto);
