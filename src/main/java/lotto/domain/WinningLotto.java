@@ -4,13 +4,7 @@ import java.util.List;
 import lotto.exception.LottoErrorMessage;
 import lotto.exception.WinningLottoErrorMessage;
 
-public class WinningLotto {
-
-    private final Lotto lotto;
-
-    public WinningLotto(Lotto lotto) {
-        this.lotto = lotto;
-    }
+public record WinningLotto(Lotto lotto) {
 
     public static WinningLotto from(String winningNumbers) {
         validateWinningNumbers(winningNumbers);
@@ -96,11 +90,7 @@ public class WinningLotto {
         }
     }
 
-    public Lotto getLotto() {
-        return lotto;
-    }
-
     public List<Integer> getNumbers() {
-        return lotto.getNumbers();
+        return lotto.numbers();
     }
 }

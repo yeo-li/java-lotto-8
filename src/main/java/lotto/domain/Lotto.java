@@ -10,9 +10,7 @@ import java.util.stream.Collectors;
 import lotto.exception.LottoErrorMessage;
 import lotto.util.Parser;
 
-public class Lotto {
-
-    private final List<Integer> numbers;
+public record Lotto(List<Integer> numbers) {
 
     public Lotto(List<Integer> numbers) {
         validate(numbers);
@@ -90,7 +88,7 @@ public class Lotto {
 
     public int countMatchingNumbers(Lotto lotto) {
         long matchCount = this.numbers.stream()
-            .filter(lotto.getNumbers()::contains)
+            .filter(lotto.numbers()::contains)
             .count();
 
         return (int) matchCount;
@@ -104,7 +102,8 @@ public class Lotto {
         return numbers.contains(bonusNumber);
     }
 
-    public List<Integer> getNumbers() {
+    @Override
+    public List<Integer> numbers() {
         return List.copyOf(numbers);
     }
 }

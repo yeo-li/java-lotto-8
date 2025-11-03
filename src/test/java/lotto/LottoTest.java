@@ -40,7 +40,7 @@ class LottoTest {
 
             // then
             List<Integer> expected = List.of(1, 2, 3, 4, 5, 6);
-            assertThat(actual.getNumbers()).isEqualTo(expected);
+            assertThat(actual.numbers()).isEqualTo(expected);
         }
 
         @Test
@@ -54,7 +54,7 @@ class LottoTest {
 
             // then
             List<Integer> expected = List.of(1, 10, 11, 20, 30, 45);
-            assertThat(actual.getNumbers()).isEqualTo(expected);
+            assertThat(actual.numbers()).isEqualTo(expected);
         }
 
         @Test

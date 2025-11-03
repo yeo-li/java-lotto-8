@@ -30,7 +30,7 @@ class LottoAnalyzerTest {
             List<Integer> expectedWinningNumbers = List.of(1, 10, 11, 20, 30, 45);
             int expectedBonusNumber = 3;
 
-            assertThat(actual.getWinningNumbers().getLotto().getNumbers()).isEqualTo(
+            assertThat(actual.getWinningNumbers().lotto().numbers()).isEqualTo(
                 expectedWinningNumbers);
             assertThat(actual.getBonusNumber()).isEqualTo(expectedBonusNumber);
         }
