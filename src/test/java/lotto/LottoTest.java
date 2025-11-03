@@ -151,7 +151,7 @@ class LottoTest {
 
         @Test
         @DisplayName("1개가 겹치는 경우")
-        void 헌개가_겹치는_경우() {
+        void 한개가_겹치는_경우() {
             // given
             Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
             Lotto lotto2 = Lotto.from("1,8,9,10,11,12");
@@ -161,6 +161,81 @@ class LottoTest {
 
             // then
             int expected = 1;
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        @Test
+        @DisplayName("2개가 겹치는 경우")
+        void 두개가_겹치는_경우() {
+            // given
+            Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
+            Lotto lotto2 = Lotto.from("1,2,9,10,11,12");
+
+            // when
+            int actual = lotto1.countMatchingNumbers(lotto2);
+
+            // then
+            int expected = 2;
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        @Test
+        @DisplayName("3개가 겹치는 경우")
+        void 세개가_겹치는_경우() {
+            // given
+            Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
+            Lotto lotto2 = Lotto.from("1,2,3,10,11,12");
+
+            // when
+            int actual = lotto1.countMatchingNumbers(lotto2);
+
+            // then
+            int expected = 3;
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        @Test
+        @DisplayName("4개가 겹치는 경우")
+        void 네개가_겹치는_경우() {
+            // given
+            Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
+            Lotto lotto2 = Lotto.from("1,2,3,4,11,12");
+
+            // when
+            int actual = lotto1.countMatchingNumbers(lotto2);
+
+            // then
+            int expected = 4;
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        @Test
+        @DisplayName("5개가 겹치는 경우")
+        void 다섯개가_겹치는_경우() {
+            // given
+            Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
+            Lotto lotto2 = Lotto.from("1,2,3,4,5,12");
+
+            // when
+            int actual = lotto1.countMatchingNumbers(lotto2);
+
+            // then
+            int expected = 5;
+            assertThat(actual).isEqualTo(expected);
+        }
+
+        @Test
+        @DisplayName("6개가 겹치는 경우")
+        void 여섯개가_겹치는_경우() {
+            // given
+            Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
+            Lotto lotto2 = Lotto.from("1,2,3,4,5,6");
+
+            // when
+            int actual = lotto1.countMatchingNumbers(lotto2);
+
+            // then
+            int expected = 6;
             assertThat(actual).isEqualTo(expected);
         }
     }
