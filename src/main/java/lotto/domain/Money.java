@@ -4,6 +4,8 @@ import lotto.exception.MoneyErrorMessage;
 
 public class Money {
 
+    private static final int LOTTO_PRICE = 1000;
+
     private final int amount;
 
     private Money(int amount) {
@@ -46,7 +48,7 @@ public class Money {
 
     private static void shouldThrowExceptionWhenNotDivisibleByThousand(String input) {
         int amount = Integer.parseInt(input);
-        if (amount % 1000 != 0) {
+        if (amount % LOTTO_PRICE != 0) {
             throw new IllegalArgumentException(MoneyErrorMessage.NOT_DIVISIBLE_BY_THOUSAND.text());
         }
     }
@@ -63,7 +65,6 @@ public class Money {
             throw new IllegalArgumentException(MoneyErrorMessage.EMPTY_INPUT.text());
         }
     }
-
 
     public int getAmount() {
         return this.amount;
