@@ -65,6 +65,18 @@ public class LottoAnalyzer {
         return statistics;
     }
 
+    public double calculateProfitRate(List<Lotto> lottos, Money money) {
+        long totalPrize = calculateTotalPrize(lottos);
+        return (double) totalPrize / money.getAmount() * 100.0;
+    }
+
+    private long calculateTotalPrize(List<Lotto> lottos) {
+        Map<Rank, Integer> statistics = this.analyze(lottos);
+        return statistics.entrySet().stream()
+            .mapToLong(entry -> (long) entry.getKey().prize() * entry.getValue())
+            .sum();
+    }
+
     public WinningLotto getWinningNumbers() {
         return winningNumbers;
     }
