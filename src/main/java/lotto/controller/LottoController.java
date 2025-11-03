@@ -8,6 +8,7 @@ import lotto.domain.LottoMachine;
 import lotto.domain.Money;
 import lotto.domain.Rank;
 import lotto.domain.WinningLotto;
+import lotto.dto.LottoResponse;
 import lotto.dto.WinningStatisticResponse;
 import lotto.util.Parser;
 import lotto.view.InputView;
@@ -26,7 +27,7 @@ public class LottoController {
     public void run() {
         Money money = createMoney();
         List<Lotto> lottos = LottoMachine.issueLottoByAmount(money);
-        outputView.printLottos(lottos);
+        outputView.printLottos(LottoResponse.from(lottos));
 
         WinningLotto winningLotto = createWinningLotto();
         LottoAnalyzer lottoAnalyzer = createLottoMachine(winningLotto);

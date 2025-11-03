@@ -1,7 +1,7 @@
 package lotto.view;
 
 import java.util.List;
-import lotto.domain.Lotto;
+import lotto.dto.LottoResponse;
 import lotto.dto.WinningStatisticResponse;
 
 public class OutputView {
@@ -16,10 +16,10 @@ public class OutputView {
     private static final String OUTPUT_RANK_1_RESULT_FORMAT = "6개 일치 (2,000,000,000원) - %d개\n";
 
 
-    public void printLottos(List<Lotto> lottos) {
-        System.out.printf(lottos.size() + OUTPUT_PURCHASED_LOTTO_HEADER);
-        for (Lotto lotto : lottos) {
-            System.out.println(lotto.format());
+    public void printLottos(List<LottoResponse> lottoResponses) {
+        System.out.printf(lottoResponses.size() + OUTPUT_PURCHASED_LOTTO_HEADER);
+        for (LottoResponse lottoResponse : lottoResponses) {
+            System.out.println(lottoResponse.formattedNumbers());
         }
     }
 
