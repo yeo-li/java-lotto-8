@@ -1,7 +1,7 @@
 package lotto.controller;
 
 import java.util.List;
-import lotto.Lotto;
+import lotto.domain.Lotto;
 import lotto.domain.LottoAnalyzer;
 import lotto.domain.LottoMachine;
 import lotto.domain.Money;
@@ -20,7 +20,7 @@ public class LottoController {
     public void run() {
         Money money = createMoney();
         List<Lotto> lottos = LottoMachine.issueLottoByAmount(money);
-        
+
         WinningLotto winningLotto = createWinningLotto();
         LottoAnalyzer lottoAnalyzer = createLottoMachine(winningLotto);
 
