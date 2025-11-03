@@ -124,7 +124,7 @@ class LottoAnalyzerTest {
 
             // then
             int expected = 0;
-            assertThat(actual.size()).isEqualTo(0);
+            assertThat(actual.size()).isEqualTo(expected);
         }
     }
 }
