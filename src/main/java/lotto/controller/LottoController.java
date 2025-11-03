@@ -30,7 +30,7 @@ public class LottoController {
         outputView.printLottos(LottoResponse.from(lottos));
 
         WinningLotto winningLotto = createWinningLotto();
-        LottoAnalyzer lottoAnalyzer = createLottoMachine(winningLotto);
+        LottoAnalyzer lottoAnalyzer = createLottoAnalyzer(winningLotto);
 
         Map<Rank, Integer> statistics = lottoAnalyzer.analyze(lottos);
         outputView.printWinningStatistics(WinningStatisticResponse.from(statistics));
@@ -61,7 +61,7 @@ public class LottoController {
         }
     }
 
-    private LottoAnalyzer createLottoMachine(WinningLotto winningLotto) {
+    private LottoAnalyzer createLottoAnalyzer(WinningLotto winningLotto) {
         while (true) {
             try {
                 String input = Parser.removeAllSpaces(inputView.inputBonusNumber());
