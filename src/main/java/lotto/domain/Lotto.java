@@ -87,8 +87,11 @@ public class Lotto {
     }
 
     public int countMatchingNumbers(Lotto lotto) {
+        long matchCount = this.numbers.stream()
+            .filter(lotto.getNumbers()::contains)
+            .count();
 
-        return 0;
+        return (int) matchCount;
     }
 
     public List<Integer> getNumbers() {
