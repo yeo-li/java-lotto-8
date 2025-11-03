@@ -1,10 +1,12 @@
 package lotto.controller;
 
 import java.util.List;
+import java.util.Map;
 import lotto.domain.Lotto;
 import lotto.domain.LottoAnalyzer;
 import lotto.domain.LottoMachine;
 import lotto.domain.Money;
+import lotto.domain.Rank;
 import lotto.domain.WinningLotto;
 import lotto.util.Parser;
 import lotto.view.InputView;
@@ -23,6 +25,8 @@ public class LottoController {
 
         WinningLotto winningLotto = createWinningLotto();
         LottoAnalyzer lottoAnalyzer = createLottoMachine(winningLotto);
+        
+        Map<Rank, Integer> statistics = lottoAnalyzer.analyze(lottos);
 
     }
 
