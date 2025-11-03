@@ -26,7 +26,7 @@ class WinningStatisticResponseTest {
 
             assertThat(response.firstCount()).isEqualTo(1);
             assertThat(response.thirdCount()).isEqualTo(2);
-            assertThat(response.fourthCount()).isEqualTo(0); // 없는 값은 0
+            assertThat(response.fourthCount()).isEqualTo(0);
         }
     }
 }
