@@ -16,8 +16,7 @@ public class OutputView {
     private static final String OUTPUT_RANK_1_RESULT_FORMAT = "6개 일치 (2,000,000,000원) - %d개\n";
 
     private static final String OUTPUT_TOTAL_PROFIT_RATE_FORMAT = "총 수익률은 %.1f%%입니다.\n";
-
-
+    
     public void printLottos(List<LottoResponse> lottoResponses) {
         System.out.println();
         System.out.printf(lottoResponses.size() + OUTPUT_PURCHASED_LOTTO_HEADER);
