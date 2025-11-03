@@ -151,6 +151,22 @@ class LottoAnalyzerTest {
             assertThat(actual).isEqualTo(expected);
         }
 
+        @Test
+        @DisplayName("로또가 하나도 당첨되지 않은 경우 수익률은 0.0을 반환")
+        void 로또가_하나도_당첨되지_않은_경우_수익률은_0_을_반환() {
+            // given
+            WinningLotto winningLotto = WinningLotto.from("1,2,3,4,5,6");
+            LottoAnalyzer analyzer = LottoAnalyzer.from(winningLotto, "7");
+
+            Lotto lotto = Lotto.from("10,11,12,13,14,15");
+            Money money = Money.from("1000");
+
+            // when
+            double actual = analyzer.calculateProfitRate(List.of(lotto), money);
+
+            // then
+            assertThat(actual).isZero();
+        }
 
     }
 }
