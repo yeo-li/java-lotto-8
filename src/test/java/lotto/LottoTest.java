@@ -239,4 +239,24 @@ class LottoTest {
             assertThat(actual).isEqualTo(expected);
         }
     }
+
+    @Nested
+    @DisplayName("contains() 테스트")
+    class ContainsTest {
+
+        @Test
+        @DisplayName("보너스 번호가 포함되어 있으면 true를 반환")
+        void 보너스_번호가_포함되어_있으면_true를_반환() {
+            // given
+            Lotto lotto = Lotto.from("1,2,3,4,5,6");
+            int bonusNumber = 6;
+
+            // when
+            boolean actual = lotto.contains(bonusNumber);
+
+            // then
+            boolean expected = true;
+            assertThat(actual).isEqualTo(expected);
+        }
+    }
 }
