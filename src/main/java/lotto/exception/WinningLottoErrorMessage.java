@@ -15,7 +15,6 @@ public enum WinningLottoErrorMessage {
     }
 
     public String text() {
-        String prefix = "[ERROR] ";
-        return prefix + message;
+        return ErrorPrefix.PREFIX.getPrefix() + message;
     }
 }

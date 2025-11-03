@@ -12,6 +12,6 @@ public enum LottoAnalyzerErrorMessage {
     }
 
     public String text() {
-        return "[ERROR] " + message;
+        return ErrorPrefix.PREFIX.getPrefix() + message;
     }
 }
