@@ -127,4 +127,30 @@ class LottoAnalyzerTest {
             assertThat(actual.size()).isEqualTo(expected);
         }
     }
+
+    @Nested
+    @DisplayName("calculateProfitRate() 테스트")
+    class CalculateProfitRateTest {
+
+        @Test
+        @DisplayName("총 당첨금이 4000000000원이고, 구입 금액이 2000원이면 수익률은 200000000.0을 반환")
+        void 총_당첨금이_2000원이고_구입_금액이_1000원이면_수익률은_200000000을_반환() {
+            // given
+            WinningLotto winningLotto = WinningLotto.from("1,2,3,4,5,6");
+            LottoAnalyzer analyzer = LottoAnalyzer.from(winningLotto, "7");
+
+            Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
+            Lotto lotto2 = Lotto.from("1,2,3,4,5,6");
+            Money money = Money.from("2000");
+
+            // when
+            double actual = analyzer.calculateProfitRate(List.of(lotto1, lotto2), money);
+
+            // then
+            double expected = 200000000.0;
+            assertThat(actual).isEqualTo(expected);
+        }
+
+
+    }
 }
