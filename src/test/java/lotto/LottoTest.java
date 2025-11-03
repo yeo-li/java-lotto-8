@@ -148,5 +148,20 @@ class LottoTest {
             int expected = 0;
             assertThat(actual).isEqualTo(expected);
         }
+
+        @Test
+        @DisplayName("1개가 겹치는 경우")
+        void 헌개가_겹치는_경우() {
+            // given
+            Lotto lotto1 = Lotto.from("1,2,3,4,5,6");
+            Lotto lotto2 = Lotto.from("1,8,9,10,11,12");
+
+            // when
+            int actual = lotto1.countMatchingNumbers(lotto2);
+
+            // then
+            int expected = 1;
+            assertThat(actual).isEqualTo(expected);
+        }
     }
 }
