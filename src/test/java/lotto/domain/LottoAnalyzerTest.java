@@ -108,5 +108,23 @@ class LottoAnalyzerTest {
             assertThat(statistics.get(Rank.FIFTH)).isEqualTo(1);
             assertThat(statistics.get(Rank.MISS)).isEqualTo(1);
         }
+
+        @Test
+        @DisplayName("로또가 한 장도 없으면 빈 Map 반환")
+        void 로또가_한장도_없으면_빈_Map_반환() {
+            // given
+            WinningLotto winningNumbers = WinningLotto.from("1,2,3,4,5,6");
+            String bonusNumber = "7";
+            LottoAnalyzer analyzer = LottoAnalyzer.from(winningNumbers, bonusNumber);
+
+            List<Lotto> lottos = List.of();
+
+            // when
+            Map<Rank, Integer> actual = analyzer.analyze(lottos);
+
+            // then
+            int expected = 0;
+            assertThat(actual.size()).isEqualTo(0);
+        }
     }
 }
