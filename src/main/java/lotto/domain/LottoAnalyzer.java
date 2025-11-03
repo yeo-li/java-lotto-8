@@ -27,8 +27,14 @@ public class LottoAnalyzer {
     }
 
     private static void shouldThrowExceptionWhenInvalidCharacter(String bonusNumber) {
-        if (!bonusNumber.matches("[0-9,]+")) {
+        if (bonusNumber.isBlank()) {
             throw new IllegalArgumentException(LottoAnalyzerErrorMessage.INVALID_CHARACTER.text());
+        }
+        for (char character : bonusNumber.toCharArray()) {
+            if (!Character.isDigit(character)) {
+                throw new IllegalArgumentException(
+                    LottoAnalyzerErrorMessage.INVALID_CHARACTER.text());
+            }
         }
     }
 
@@ -56,7 +62,7 @@ public class LottoAnalyzer {
         Map<Rank, Integer> statistics = new EnumMap<>(Rank.class);
 
         for (Lotto lotto : lottos) {
-            int matchCount = lotto.countMatchingNumbers(winningNumbers.getLotto());
+            int matchCount = lotto.countMatchingNumbers(winningNumbers.lotto());
             boolean matchBonus = lotto.contains(bonusNumber);
             Rank rank = Rank.valueOf(matchCount, matchBonus);
             statistics.merge(rank, 1, Integer::sum);
