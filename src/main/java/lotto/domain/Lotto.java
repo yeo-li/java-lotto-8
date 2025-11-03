@@ -26,7 +26,6 @@ public class Lotto {
         shouldThrowExceptionWhenDuplicatedNumber(numbers);
     }
 
-
     private void shouldThrowExceptionWhenDuplicatedNumber(List<Integer> numbers) {
         Set<Integer> uniqueNumbers = new HashSet<>(numbers);
         if (uniqueNumbers.size() != numbers.size()) {
@@ -85,6 +84,11 @@ public class Lotto {
         if (parsedNumbers.stream().anyMatch(number -> number < 1 || number > 45)) {
             throw new IllegalArgumentException(LottoErrorMessage.OUT_OF_RANGE.text());
         }
+    }
+
+    public int countMatchingNumbers(Lotto lotto) {
+
+        return 0;
     }
 
     public List<Integer> getNumbers() {
