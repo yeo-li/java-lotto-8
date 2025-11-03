@@ -94,6 +94,10 @@ public class Lotto {
         return (int) matchCount;
     }
 
+    public boolean contains(int bonusNumber) {
+        return numbers.contains(bonusNumber);
+    }
+
     public List<Integer> getNumbers() {
         return List.copyOf(numbers);
     }
