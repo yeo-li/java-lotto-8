@@ -25,8 +25,10 @@ public class LottoController {
 
         WinningLotto winningLotto = createWinningLotto();
         LottoAnalyzer lottoAnalyzer = createLottoMachine(winningLotto);
-        
+
         Map<Rank, Integer> statistics = lottoAnalyzer.analyze(lottos);
+
+        double profitRate = lottoAnalyzer.calculateProfitRate(lottos, money);
 
     }
 
